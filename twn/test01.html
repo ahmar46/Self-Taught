@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech with Nerds | Learn JavaScript</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid #ff6b9d;
+            padding: 20px 0;
+            margin-bottom: 40px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            background: #ff6b9d;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #c7d2fe;
+            letter-spacing: 3px;
+            margin-top: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(236, 72, 153, 0.4));
+            border: 3px solid #ff6b9d;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #e0e7ff;
+        }
+
+        .start-btn {
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.5);
+            transition: all 0.3s;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.7);
+        }
+
+        /* Lessons Grid */
+        .lessons-section {
+            display: none;
+        }
+
+        .lessons-section.active {
+            display: block;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .lessons-title {
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .lesson-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff6b9d;
+            box-shadow: 0 8px 30px rgba(255, 107, 157, 0.4);
+        }
+
+        .lesson-badge {
+            display: inline-block;
+            background: #fbbf24;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .lesson-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .lesson-desc {
+            color: #e0e7ff;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-xp {
+            color: #fbbf24;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .completed-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #10b981;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border: 3px solid #667eea;
+        }
+
+        /* Lesson Detail */
+        .lesson-detail {
+            display: none;
+        }
+
+        .lesson-detail.active {
+            display: block;
+        }
+
+        .lesson-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .instruction-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .challenge-box {
+            background: rgba(255, 107, 157, 0.2);
+            border: 2px solid #ff6b9d;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .challenge-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fbbf24;
+        }
+
+        .complete-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .complete-btn:hover {
+            background: #059669;
+            transform: scale(1.02);
+        }
+
+        .editor-panel {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .editor-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .run-btn {
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .run-btn:hover {
+            background: #e85d8a;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            background: #1a1a2e;
+            color: #00ff41;
+            border: 2px solid #4a4a6a;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: none;
+            margin-bottom: 15px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #ff6b9d;
+        }
+
+        .output-box {
+            background: #1a1a2e;
+            border: 2px solid #4a4a6a;
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 120px;
+        }
+
+        .output-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .output-content {
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">💻</div>
+                <div>
+                    <h1>TECH WITH NERDS</h1>
+                    <div class="subtitle">MASTER JAVASCRIPT</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div id="hero" class="hero">
+            <h2>🚀 Learn JavaScript</h2>
+            <p>Master the language of the web through interactive coding challenges</p>
+            <button class="start-btn" onclick="showLessons()">START LEARNING →</button>
+        </div>
+
+        <!-- Lessons Section -->
+        <div id="lessonsSection" class="lessons-section">
+            <button class="back-btn" onclick="showHero()">← Back to Home</button>
+            <h2 class="lessons-title">📚 JavaScript Quests</h2>
+            <div class="lessons-grid" id="lessonsGrid"></div>
+        </div>
+
+        <!-- Lesson Detail Section -->
+        <div id="lessonDetail" class="lesson-detail">
+            <button class="back-btn" onclick="showLessons()">← Back to Lessons</button>
+            <div class="lesson-content">
+                <div class="instruction-panel">
+                    <h2 id="detailTitle" style="font-size: 32px; margin-bottom: 20px;"></h2>
+                    <div id="detailBadge"></div>
+                    <p id="detailDesc" style="color: #e0e7ff; margin: 20px 0;"></p>
+                    
+                    <div class="challenge-box">
+                        <div class="challenge-title">⚡ YOUR MISSION:</div>
+                        <p id="detailChallenge"></p>
+                    </div>
+
+                    <button class="complete-btn" onclick="completeLesson()">✓ MARK COMPLETE</button>
+                </div>
+
+                <div class="editor-panel">
+                    <div class="editor-header">
+                        <div class="editor-title">💾 CODE EDITOR</div>
+                        <button class="run-btn" onclick="runCode()">▶ RUN</button>
+                    </div>
+                    <textarea id="codeEditor" spellcheck="false"></textarea>
+                    <div class="output-box">
+                        <div class="output-title">OUTPUT:</div>
+                        <div class="output-content" id="output">// Run your code to see output...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const lessons = [
+            {
+                id: 1,
+                title: "Hello JavaScript",
+                level: "Beginner",
+                xp: 100,
+                description: "Write your first line of JavaScript code",
+                starter: '// Your first JavaScript code\nconsole.log("Hello World");',
+                challenge: "Use console.log() to print 'Hello Tech with Nerds!' to the console"
+            },
+            {
+                id: 2,
+                title: "Variables & Data",
+                level: "Beginner",
+                xp: 150,
+                description: "Learn to store data using variables",
+                starter: '// Declare variables\nlet name = "Coder";\nlet age = 25;\n\nconsole.log(name);\nconsole.log(age);',
+                challenge: "Create two variables: your name and your favorite number, then log them"
+            },
+            {
+                id: 3,
+                title: "Math Operations",
+                level: "Beginner",
+                xp: 120,
+                description: "Perform calculations with JavaScript",
+                starter: '// Math operations\nlet x = 10;\nlet y = 5;\n\nlet sum = x + y;\nconsole.log(sum);',
+                challenge: "Calculate and log the sum, difference, product, and quotient of two numbers"
+            },
+            {
+                id: 4,
+                title: "Strings & Concatenation",
+                level: "Beginner",
+                xp: 130,
+                description: "Work with text in JavaScript",
+                starter: '// Working with strings\nlet firstName = "John";\nlet lastName = "Doe";\n\nlet fullName = firstName + " " + lastName;\nconsole.log(fullName);',
+                challenge: "Create a greeting message using string concatenation"
+            },
+            {
+                id: 5,
+                title: "Conditionals: if/else",
+                level: "Intermediate",
+                xp: 200,
+                description: "Make decisions in your code",
+                starter: '// Conditional statements\nlet score = 85;\n\nif (score >= 90) {\n  console.log("A grade");\n} else if (score >= 80) {\n  console.log("B grade");\n} else {\n  console.log("Keep trying!");\n}',
+                challenge: "Write an if/else statement to check if a number is positive, negative, or zero"
+            },
+            {
+                id: 6,
+                title: "Functions Basics",
+                level: "Intermediate",
+                xp: 250,
+                description: "Create reusable blocks of code",
+                starter: '// Define a function\nfunction greet(name) {\n  return "Hello, " + name + "!";\n}\n\nconsole.log(greet("World"));',
+                challenge: "Create a function that takes two numbers and returns their sum"
+            },
+            {
+                id: 7,
+                title: "Arrays",
+                level: "Intermediate",
+                xp: 180,
+                description: "Store multiple values in one variable",
+                starter: '// Working with arrays\nlet fruits = ["apple", "banana", "orange"];\n\nconsole.log(fruits[0]);\nconsole.log(fruits.length);',
+                challenge: "Create an array of your favorite foods and log the first and last items"
+            },
+            {
+                id: 8,
+                title: "Loops: for",
+                level: "Intermediate",
+                xp: 220,
+                description: "Repeat actions with loops",
+                starter: '// For loop\nfor (let i = 1; i <= 5; i++) {\n  console.log("Count: " + i);\n}',
+                challenge: "Use a for loop to print numbers from 1 to 10"
+            },
+            {
+                id: 9,
+                title: "Objects",
+                level: "Advanced",
+                xp: 300,
+                description: "Group related data together",
+                starter: '// JavaScript objects\nlet person = {\n  name: "Alice",\n  age: 30,\n  city: "NYC"\n};\n\nconsole.log(person.name);\nconsole.log(person.age);',
+                challenge: "Create an object representing a car with properties: brand, model, and year"
+            },
+            {
+                id: 10,
+                title: "Array Methods",
+                level: "Advanced",
+                xp: 280,
+                description: "Master powerful array operations",
+                starter: '// Array methods\nlet numbers = [1, 2, 3, 4, 5];\n\nlet doubled = numbers.map(n => n * 2);\nconsole.log(doubled);',
+                challenge: "Use array methods like map, filter, or reduce to transform an array"
+            }
+        ];
+
+        let completedLessons = [];
+        let currentLesson = null;
+
+        function showHero() {
+            document.getElementById('hero').style.display = 'block';
+            document.getElementById('lessonsSection').classList.remove('active');
+            document.getElementById('lessonDetail').classList.remove('active');
+        }
+
+        function showLessons() {
+            document.getElementById('hero').style.display = 'none';
+            document.getElementById('lessonsSection').classList.add('active');
+            document.getElementById('lessonDetail').classList.remove('active');
+            renderLessons();
+        }
+
+        function renderLessons() {
+            const grid = document.getElementById('lessonsGrid');
+            grid.innerHTML = '';
+
+            lessons.forEach(lesson => {
+                const card = document.createElement('div');
+                card.className = 'lesson-card';
+                card.onclick = () => openLesson(lesson);
+
+                const isCompleted = completedLessons.includes(lesson.id);
+
+                card.innerHTML = `
+                    ${isCompleted ? '<div class="completed-badge">✓</div>' : ''}
+                    <div class="lesson-badge">${lesson.level}</div>
+                    <div class="lesson-title">${lesson.title}</div>
+                    <div class="lesson-desc">${lesson.description}</div>
+                    <div class="lesson-xp">+${lesson.xp} XP</div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        function openLesson(lesson) {
+            currentLesson = lesson;
+            document.getElementById('lessonsSection').classList.remove('active');
+            document.getElementById('lessonDetail').classList.add('active');
+
+            document.getElementById('detailTitle').textContent = lesson.title;
+            document.getElementById('detailBadge').innerHTML = `<span class="lesson-badge">${lesson.level}</span> <span class="lesson-xp">+${lesson.xp} XP</span>`;
+            document.getElementById('detailDesc').textContent = lesson.description;
+            document.getElementById('detailChallenge').textContent = lesson.challenge;
+            document.getElementById('codeEditor').value = lesson.starter;
+            document.getElementById('output').textContent = '// Run your code to see output...';
+        }
+
+        function runCode() {
+            const code = document.getElementById('codeEditor').value;
+            const outputDiv = document.getElementById('output');
+            
+            // Capture console.log output
+            let output = [];
+            const originalLog = console.log;
+            console.log = function(...args) {
+                output.push(args.join(' '));
+                originalLog.apply(console, args);
+            };
+
+            try {
+                eval(code);
+                outputDiv.textContent = output.length > 0 ? output.join('\n') : '✓ Code executed successfully!';
+                outputDiv.style.color = '#00ff41';
+            } catch (error) {
+                outputDiv.textContent = '⚠ Error: ' + error.message;
+                outputDiv.style.color = '#ff6b9d';
+            }
+
+            // Restore console.log
+            console.log = originalLog;
+        }
+
+        function completeLesson() {
+            if (currentLesson && !completedLessons.includes(currentLesson.id)) {
+                completedLessons.push(currentLesson.id);
+                alert('🎉 Quest Complete! +' + currentLesson.xp + ' XP earned!');
+                showLessons();
+            } else {
+                alert('✓ Already completed!');
+            }
+        }
+
+        // Initialize
+        renderLessons();
+    </script>
+</body>
+</html>
